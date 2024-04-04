@@ -144,7 +144,20 @@ end
 nsamples = numel(datalines);
 
 vname = 'TIME';
-data.(vname) = datenum(deviceInfo.start_time, 'yyyy/mm/ddHH:MM') + ((0:nsamples-1)*deviceInfo.sample_interval)/86400;
+fmt_date = 'yyyymmdd';
+if contains(deviceInfo.start_time, '/')
+    fmt_date = 'yyyy/mm/dd';
+end
+fmt_sep = '';
+if contains(deviceInfo.start_time, 'T')
+    fmt_sep = 'T';
+end
+fmt_time = 'HHMM';
+if contains(deviceInfo.start_time, ':')
+    fmt_time = 'HH:MM';
+end
+fmt_str = strcat(fmt_date, fmt_sep, fmt_time);
+data.(vname) = datenum(deviceInfo.start_time, fmt_str) + ((0:nsamples-1)*deviceInfo.sample_interval)/86400;
 data.(vname) = data.(vname)(:);
 xattrs('TIME') = struct('comment', 'TIME');
     
