@@ -113,7 +113,7 @@ if contains(deviceInfo.instrument_model, 'WLR')
             % L4 = A1,B1,C1,D1 PRESSURE COEFFICIENTS
             % L5 = A2 & B2 ARE ALSO PRESSURE COEFFICIENTS AND ARE ADDED TO A1 & B1 RESPECTIVELY
             vname = 'TEMP';
-            ind = 2;
+            ind = 4;
             carray = NaN([1, 4]);
             carray(1) = split_lines{ind}(1) + split_lines{ind+1}(1);
             carray(2) = split_lines{ind}(2) + split_lines{ind+1}(2);
@@ -122,7 +122,7 @@ if contains(deviceInfo.instrument_model, 'WLR')
             coeff.(vname) = carray;
             
             vname = 'PRES';
-            ind = 4;
+            ind = 2;
             carray = NaN([1, 4]);
             carray(1) = split_lines{ind}(1) + split_lines{ind+1}(1);
             carray(2) = split_lines{ind}(2) + split_lines{ind+1}(2);
