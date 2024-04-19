@@ -93,7 +93,7 @@ end
 
 if ~auto
     f = figure(...
-        'Name',        'Local Time Offset from UTC',...
+        'Name',        'correctNightParPP: Local Time Offset from UTC',...
         'Visible',     'off',...
         'MenuBar'  ,   'none',...
         'Resize',      'off',...
@@ -220,8 +220,14 @@ for k = 1:nSample
         %night_par = night_par(night_par >= 0.0);
         %night_par = night_par((night_par >= 0.0) & (night_par < 5));
         night_par = night_par(night_par < 5);
-        par_night_median(i) = median(night_par, 'omitnan');
-        par_night_std(i) = std(night_par, 'omitnan');
+        %disp([datestr(sset(i-1)) ' : ' num2str(median(night_par, 'omitnan'))])
+        if ~isempty(night_par)
+            par_night_median(i) = median(night_par, 'omitnan');
+            par_night_std(i) = std(night_par, 'omitnan');
+        else
+            par_night_median(i) = 0.0;
+            par_night_std(i) = 0.0;        
+        end
     end
     
     igood = isfinite(par_night_median);
@@ -325,8 +331,8 @@ end
         val = get(source, 'Value');
         
         include(idx) = val;
-        
-        if val
+
+        if val & (getVar(sample_data{idx}.variables, 'PAR') ~= 0)
             val = 'on';
         else
             val = 'off';
