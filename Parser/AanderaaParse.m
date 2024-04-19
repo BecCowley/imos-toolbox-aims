@@ -62,7 +62,7 @@ cal_filename = regexprep(filename, '.raw$', '.dev', 'ignorecase');
 % User supplied information file, not to be confused with possible inf file
 % from old aanderaa s/w, this file has some basic instrument info required
 % for parsing the calibration and data files.
-inf_filename = regexprep(cal_filename, '\.dev$', '.inf', 'ignorecase');
+inf_filename = regexprep(cal_filename, '\.(dev|asc)$', '.inf', 'ignorecase');
 
 if is_eng
     error('Aanderaa .eng export format not handled yet.');
